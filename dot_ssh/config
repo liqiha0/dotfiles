@@ -1,0 +1,10 @@
+Host *
+	IdentityAgent "~/.1password/agent.sock"
+
+host github.com
+    hostname ssh.github.com
+    port 443
+    user git
+
+Include ~/.orbstack/ssh/config
+
