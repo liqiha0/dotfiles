@@ -1,0 +1,21 @@
+{
+  "mode": "local_external",
+  "apiKey": "",
+  "timeout": 120,
+  "idle_timeout": 300,
+  "retain_tags": "",
+  "observation_scopes": "",
+  "retain_source": "",
+  "retain_user_prefix": "User",
+  "retain_assistant_prefix": "Assistant",
+  "banks": {
+    "hermes": {
+      "bankId": "hermes",
+      "budget": "mid",
+      "enabled": true
+    }
+  },
+  "api_url": "http://localhost:8888",
+  "bank_id": "hermes",
+  "recall_budget": "mid"
+}

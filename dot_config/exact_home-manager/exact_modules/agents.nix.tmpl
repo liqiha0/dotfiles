@@ -1,0 +1,169 @@
+{ config, inputs, lib, pkgs, ... }:
+
+{
+  home.sessionVariables = {
+    OPENAI_BASE_URL = "https://ai.liqiha0.i234.me:8443/v1";
+    OPENAI_API_KEY = "{{ onepasswordRead "op://w7pdf7kq2qdntrhsfunxeozuxa/gyeqkp5wyourmatxkk6hde2o6u/credential" }}";
+  };
+
+  home.packages = with pkgs; [
+    (pkgs.writeShellScriptBin "acpx" ''
+      exec bunx acpx@latest "$@"
+    '')
+
+    (pkgs.writeShellScriptBin "defuddle" ''
+      exec bunx defuddle@latest "$@"
+    '')
+
+    (pkgs.writeShellScriptBin "codex-acp" ''
+      exec bunx @zed-industries/codex-acp@latest "$@"
+    '')
+
+    (pkgs.writeShellScriptBin "paseo" ''
+      exec bunx @getpaseo/cli "$@"
+    '')
+
+    herdr
+    ctx7
+
+    inputs.llm-agents.packages.${pkgs.system}.mcporter
+    inputs.llm-agents.packages.${pkgs.system}.agent-browser
+    inputs.llm-agents.packages.${pkgs.system}.officecli
+    inputs.llm-agents.packages.${pkgs.system}.gitnexus
+
+    maestro
+  ];
+
+  home.file = {
+    ".agents/skills/openai/skills" = {
+      source = "${inputs."openai-skills"}/skills";
+    };
+    ".agents/skills/anthropics/skills" = {
+      source = "${inputs."anthropics-skills"}/skills";
+    };
+    ".agents/skills/openclaw/mcporter" = {
+      source = "${inputs."openclaw-openclaw"}/skills/mcporter";
+    };
+    ".agents/skills/openclaw/acpx" = {
+      source = "${inputs."openclaw-acpx"}/skills/acpx";
+    };
+
+    ".agents/skills/prisma/skills" = {
+      source = "${inputs."prisma-skills"}";
+    };
+    ".agents/skills/kadajett/agent-nestjs-skills" = {
+      source = "${inputs."kadajett-agent-nestjs-skills"}";
+    };
+    ".agents/skills/better-auth/skills" = {
+      source = "${inputs."better-auth-skills"}";
+    };
+    ".agents/skills/binarywang/WxJava" = {
+      source = "${inputs."binarywang-WxJava"}/skills";
+    };
+    ".agents/skills/vercel-labs/next-skills" = {
+      source = "${inputs."vercel-labs-next-skills"}/skills";
+    };
+    ".agents/skills/remotion-dev/skills" = {
+      source = "${inputs."remotion-dev-skills"}/skills";
+    };
+    ".agents/skills/expo/skills" = {
+      source = "${inputs."expo-skills"}/plugins/expo/skills";
+    };
+
+    ".agents/skills/abhigyanpatwari/gitnexus" = {
+      source = "${inputs."abhigyanpatwari-gitnexus"}/.claude/skills/gitnexus";
+    };
+    ".agents/skills/upstash/context7" = {
+      source = "${inputs."upstash-context7"}/skills";
+    };
+    ".agents/skills/JuliusBrussee/caveman" = {
+      source = "${inputs."JuliusBrussee-caveman"}/skills";
+    };
+    ".agents/skills/vercel-labs/agent-browser" = {
+      source = "${inputs."vercel-labs-agent-browser"}/skills";
+    };
+    ".agents/skills/vercel-labs/agent-skills" = {
+      source = "${inputs."vercel-labs-agent-skills"}/skills";
+    };
+    ".agents/skills/vercel-labs/skills" = {
+      source = "${inputs."vercel-labs-skills"}/skills";
+    };
+    ".agents/skills/nextlevelbuilder/ui-ux-pro-max" = {
+      source = "${inputs."nextlevelbuilder-ui-ux-pro-max-skill"}/.claude/skills";
+    };
+    ".agents/skills/kepano/obsidian-skills" = {
+      source = "${inputs."kepano-obsidian-skills"}/skills";
+    };
+    ".agents/skills/liqiha0/lifeos-skills" = {
+      source = "${inputs."liqiha0-lifeos-skills"}/skills";
+    };
+    ".agents/skills/JimLiu/baoyu-skills" = {
+      source = "${inputs."JimLiu-baoyu-skills"}/skills";
+    };
+    ".agents/skills/figma/mcp-server-guide" = {
+      source = "${inputs."figma-mcp-server-guide"}/skills";
+    };
+    ".agents/skills/github/awesome-copilot/documentation-writer" = {
+      source = "${inputs."github-awesome-copilot"}/skills/documentation-writer";
+    };
+    ".agents/skills/coreyhaines31/marketingskills/skills" = {
+      source = "${inputs."coreyhaines31-marketingskills"}/skills";
+    };
+    ".agents/skills/pbakaus/impeccable" = {
+      source = "${inputs."pbakaus-impeccable"}/.agents/skills/impeccable";
+    };
+    ".agents/skills/wechatpay-apiv3/wechatpay-skills" = {
+      source = "${inputs."wechatpay-apiv3-wechatpay-skills"}";
+    };
+    ".agents/skills/mattpocock/skills/skills/engineering" = {
+      source = "${inputs."mattpocock-skills"}/skills/engineering";
+    };
+    ".agents/skills/mattpocock/skills/skills/productivity" = {
+      source = "${inputs."mattpocock-skills"}/skills/productivity";
+    };
+    ".agents/skills/vectorize-io/hindsight" = {
+      source = "${inputs."vectorize-io-hindsight"}/skills";
+    };
+    ".agents/skills/iOfficeAI/OfficeCLI" = {
+      source = "${inputs."iOfficeAI-OfficeCLI"}";
+    };
+    ".agents/skills/ogulcancelik/herdr" = {
+      source = "${inputs."ogulcancelik-herdr"}";
+    };
+    ".agents/skills/jetify-com/devbox" = {
+      source = "${inputs."jetify-com-devbox"}/.agents/skills";
+    };
+    ".agents/skills/gamedev-skills/awesome-gamedev-agent-skills/router" = {
+      source = "${inputs."gamedev-skills-awesome-gamedev-agent-skills"}/router";
+    };
+    ".agents/skills/gamedev-skills/awesome-gamedev-agent-skills/skills" = {
+      source = "${inputs."gamedev-skills-awesome-gamedev-agent-skills"}/skills";
+    };
+
+
+  };
+
+  programs = {
+    opencode = {
+      enable = true;
+      package = (pkgs.writeShellScriptBin "opencode" ''
+      export OP_SERVICE_ACCOUNT_TOKEN='{{ onepasswordRead "op://3kzndqhe5bky5wj65buh2h4ybi/kpip7secen2mphnpumc4axirlm/credential" }}'
+      exec bunx opencode-ai@latest "$@"
+      '');
+    };
+    codex = {
+      enable = true;
+      package = (pkgs.writeShellScriptBin "codex" ''
+      export OP_SERVICE_ACCOUNT_TOKEN='{{ onepasswordRead "op://3kzndqhe5bky5wj65buh2h4ybi/kpip7secen2mphnpumc4axirlm/credential" }}'
+      exec bunx @openai/codex@latest "$@"
+      '');
+    };
+    claude-code = {
+      enable = false;
+      package = (pkgs.writeShellScriptBin "claude" ''
+      export OP_SERVICE_ACCOUNT_TOKEN='{{ onepasswordRead "op://3kzndqhe5bky5wj65buh2h4ybi/kpip7secen2mphnpumc4axirlm/credential" }}'
+      exec bunx @anthropic-ai/claude-code "$@"
+      '');
+    };
+  };
+}

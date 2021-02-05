@@ -1,0 +1,78 @@
+_config_version: 33
+model:
+  provider: custom:cpa
+  default: gpt-5.6-sol
+  context_length: 258000
+  supports_vision: true
+providers:
+  cpa:
+    api: https://ai.liqiha0.i234.me:8443/v1
+    api_key: '{{ onepasswordRead "op://w7pdf7kq2qdntrhsfunxeozuxa/gyeqkp5wyourmatxkk6hde2o6u/credential" }}'
+    transport: codex_responses
+agent:
+  reasoning_effort: high
+  verify_on_stop: false
+compression:
+  threshold: 0.95
+display:
+  interface: tui
+  tool_progress: all
+  sections:
+    thinking: expanded
+memory:
+  provider: hindsight
+skills:
+  external_dirs:
+    - ~/.agents/skills
+session_reset:
+  mode: both
+  idle_minutes: 1440
+  at_hour: 6
+platform_toolsets:
+  cli:
+  - browser
+  - clarify
+  - code_execution
+  - computer_use
+  - context_engine
+  - cronjob
+  - delegation
+  - file
+  - image_gen
+  - memory
+  - messaging
+  - session_search
+  - skills
+  - terminal
+  - todo
+  - tts
+  - vision
+  - web
+  telegram:
+  - browser
+  - clarify
+  - code_execution
+  - computer_use
+  - context_engine
+  - cronjob
+  - delegation
+  - file
+  - image_gen
+  - memory
+  - messaging
+  - session_search
+  - skills
+  - terminal
+  - todo
+  - tts
+  - vision
+  - web
+image_gen:
+  provider: openai
+  use_gateway: false
+  model: gpt-image-2-medium
+plugins:
+  enabled:
+  - herdr-agent-state
+  - ponytail
+
