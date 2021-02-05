@@ -1,0 +1,11 @@
+model = "gpt-5.4"
+model_provider = "CPA"
+
+[features]
+js_repl = true
+
+[model_providers.CPA]
+name = "CPA"
+base_url = "http://localhost:8317/v1"
+env_key = "OPENAI_API_KEY"
+
