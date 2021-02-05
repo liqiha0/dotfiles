@@ -1,0 +1,32 @@
+{
+  "experimental": {
+    "skills": true
+  },
+  "context": {
+    "fileName": [
+      "GEMINI.md",
+      "AGENTS.md"
+    ]
+  },
+  "general": {
+    "preferredEditor": "neovim",
+    "vimMode": true,
+    "checkpointing": {
+      "enabled": false
+    }
+  },
+  "tools": {
+    "shell": {
+      "showColor": true
+    },
+    "useRipgrep": true
+  },
+  "security": {
+    "auth": {
+      "selectedType": "oauth-personal"
+    }
+  },
+  "ui": {
+    "theme": "ANSI Light"
+  }
+}

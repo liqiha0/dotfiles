@@ -1,0 +1,67 @@
+{ config, pkgs, ... }:
+
+let
+  sources = import ./sources.nix { inherit pkgs; };
+in
+{
+  home.packages = with pkgs; [
+    (pkgs.writeShellScriptBin "codex-acp" ''
+      exec bunx @zed-industries/codex-acp "$@"
+    '')
+    llm-agents.agent-browser
+
+    maestro
+    antigravity
+  ];
+
+  home.file = {
+    ".agents/skills/anthropics" = {
+      source = "${sources.anthropics-skills}/skills";
+      recursive = true;
+    };
+    ".agents/skills/vercel-labs/agent-browser" = {
+      source = "${sources.agent-browser}/skills";
+      recursive = true;
+    };
+    ".agents/skills/vercel-labs/agent-skills" = {
+      source = "${sources.agent-skills}/skills";
+      recursive = true;
+    };
+    ".agents/skills/vercel-labs/skills" = {
+      source = "${sources.vercel-skills}/skills";
+      recursive = true;
+    };
+    ".agents/skills/remotion-dev/skills" = {
+      source = "${sources.remotion-skills}/skills";
+      recursive = true;
+    };
+    ".agents/skills/nextlevelbuilder/ui-ux-pro-max-skill" = {
+      source = "${sources.ui-ux-pro-max-skill}/.claude/skills";
+      recursive = true;
+    };
+    ".agents/skills/kepano" = {
+      source = "${sources.obsidian-skills}/skills";
+      recursive = true;
+    };
+    ".agents/skills/opencode-acp-control".source = "${sources.opencode-acp-skill}/src/skills/opencode-acp-control";
+    ".agents/skills/openclaw/mcporter".source = "${sources.openclaw-skills}/skills/mcporter";
+  };
+
+  programs = {
+    opencode = {
+      enable = true;
+      package = (pkgs.writeShellScriptBin "opencode" ''
+      export OP_SERVICE_ACCOUNT_TOKEN='{{ onepasswordRead "op://3kzndqhe5bky5wj65buh2h4ybi/kpip7secen2mphnpumc4axirlm/credential" }}'
+      exec bunx opencode-ai@latest "$@"
+    '');
+    };
+    codex = {
+      enable = true;
+      package = (pkgs.writeShellScriptBin "codex" ''
+      export OP_SERVICE_ACCOUNT_TOKEN='{{ onepasswordRead "op://3kzndqhe5bky5wj65buh2h4ybi/kpip7secen2mphnpumc4axirlm/credential" }}'
+      exec bunx @openai/codex@latest "$@"
+    '');
+    };
+    gemini-cli.enable = true;
+  };
+}

@@ -1,0 +1,26 @@
+{
+  "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-opencode/master/assets/oh-my-opencode.schema.json",
+  "google_auth": false,
+  "disabled_hooks": [
+    "keyword-detector"
+  ],
+  "sisyphus_agent": {
+    "default_builder_enabled": true
+  },
+  "browser_automation_engine": {
+    "provider": "agent-browser"
+  },
+  "agents": {
+    "sisyphus": {
+      "model": "opencode/minimax-m2.5-free"
+    },
+    "prometheus":{
+      "model": "openai/gpt-5.2"
+    }
+  },
+  "categories": {
+    "visual-engineering": {
+      "model": "google/antigravity-gemini-3.1-pro"
+    }
+  }
+}

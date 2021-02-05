@@ -1,0 +1,36 @@
+{
+  "mcpServers": {
+    "spec-workflow": {
+      "command": "bunx",
+      "args": ["@pimzino/spec-workflow-mcp@latest"]
+    },
+    "gitlab0": {
+      "command": "bunx",
+      "args": ["@zereight/mcp-gitlab"],
+      "env": {
+        "GITLAB_API_URL": "{{ onepasswordRead "op://3kzndqhe5bky5wj65buh2h4ybi/kt4dwi7bdd6burcodswf2h536i/hostname" }}",
+        "GITLAB_PERSONAL_ACCESS_TOKEN": "{{ onepasswordRead "op://3kzndqhe5bky5wj65buh2h4ybi/kt4dwi7bdd6burcodswf2h536i/credential" }}"
+      }
+    },
+    "gitlab1": {
+      "command": "bunx",
+      "args": ["@zereight/mcp-gitlab"],
+      "env": {
+        "GITLAB_API_URL": "{{ onepasswordRead "op://3kzndqhe5bky5wj65buh2h4ybi/la5ht4wloxcqoy2sh4esuqcvfy/hostname" }}",
+        "GITLAB_PERSONAL_ACCESS_TOKEN": "{{ onepasswordRead "op://3kzndqhe5bky5wj65buh2h4ybi/la5ht4wloxcqoy2sh4esuqcvfy/credential" }}"
+      }
+    },
+    "maestro": {
+      "command": "maestro",
+      "args": ["mcp"]
+    },
+    "mobile-mcp": {
+      "command": "pnpm",
+      "args": ["dlx", "@mobilenext/mobile-mcp@latest"]
+    },
+    "miniprogram-automator-mcp": {
+      "command": "bunx",
+      "args": ["miniprogram-automator-mcp@latest"]
+    }
+  }
+}
