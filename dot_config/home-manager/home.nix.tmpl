@@ -1,0 +1,220 @@
+{ config, pkgs, ... }:
+
+{
+  imports = [
+    ./modules/neovim.nix
+  ];
+
+  home.stateVersion = "25.11";
+
+  nixpkgs.config.allowUnfree = true;
+
+  home.language = {
+    base = "zh_CN.UTF-8";
+  };
+
+  fonts.fontconfig.enable = true;
+
+  home.packages = with pkgs; [
+    wget
+    curl
+    httpie
+    curlie
+    unzip
+    kubectl
+    chafa
+    talosctl
+    kubernetes-helm
+    devbox
+    pack
+    pandoc
+    fx
+    yq
+    dust
+    gping
+    posting
+    gitlab-ci-local
+    sshpass
+    harlequin
+    tunnelto
+    prismlauncher
+
+    nerd-fonts.jetbrains-mono
+    maple-mono.NF-CN-unhinted
+
+    (pkgs.writeShellScriptBin "gemini" ''
+      exec pnpm dlx @google/gemini-cli "$@"
+    '')
+    (pkgs.writeShellScriptBin "gemini-preview" ''
+      exec pnpm dlx @google/gemini-cli@preview "$@"
+    '')
+    (pkgs.writeShellScriptBin "codex" ''
+      exec pnpm dlx @openai/codex "$@"
+    '')
+    (pkgs.writeShellScriptBin "opencode" ''
+      exec pnpm dlx opencode-ai "$@"
+    '')
+    (pkgs.writeShellScriptBin "codex-acp" ''
+      exec pnpm dlx @zed-industries/codex-acp "$@"
+    '')
+
+    tldr
+    cht-sh
+    navi
+
+    python3
+    deno
+    nodejs_24
+    pnpm
+    uv
+
+    telegram-desktop
+    google-chrome
+    moonlight-qt
+    antigravity
+  ];
+
+  home.sessionVariables = {
+  };
+
+  home.sessionPath = [
+  ];
+
+  home.shellAliases = {
+    specify = "uvx --from git+https://github.com/github/spec-kit.git specify";
+  };
+
+  programs = {
+    home-manager.enable = true;
+
+    fish = {
+      enable = true;
+      interactiveShellInit = ''
+        if set -q NVIM
+          fish_default_key_bindings
+          set -g fish_key_bindings fish_default_key_bindings
+        else
+          fish_vi_key_bindings
+          set -g fish_key_bindings fish_vi_key_bindings
+        end
+        set -e -U fish_key_bindings
+        set fish_greeting
+      '';
+    };
+    fzf = {
+      enable = true;
+    };
+    carapace = {
+      enable = true;
+    };
+    nushell = {
+      enable = true;
+    };
+    starship = {
+      enable = true;
+    };
+    zellij = {
+      enable = true;
+    };
+    zoxide = {
+      enable = true;
+      enableFishIntegration = true;
+    };
+    eza = {
+      enable = true;
+    };
+    yazi = {
+      enable = true;
+      enableFishIntegration = true;
+      settings = {
+        mgr = {
+          show_hidden = true;
+        };
+      };
+    };
+    bottom = {
+      enable = true;
+    };
+    jq = {
+      enable = true;
+    };
+    bat.enable = true;
+    k9s.enable = true;
+    lazygit.enable = true;
+    lazydocker.enable = true;
+    gh.enable = true;
+    gh-dash.enable = true;
+
+    git = {
+      enable = true;
+      settings = {
+        user = {
+          name = "liqihao";
+          email = "liqiha0@outlook.com";
+        };
+        core = {
+          autocrlf = "input";
+        };
+        init = {
+          defaultBranch = "master";
+        };
+      };
+    };
+    delta.enable = true;
+    jujutsu = {
+      enable = true;
+      settings = {
+        user = {
+          name = "liqihao";
+          email = "liqiha0@outlook.com";
+        };
+        ui = {
+          conflict-marker-style = "git";
+        };
+      };
+    };
+    jjui.enable = true;
+
+    helix = {
+      enable = true;
+    };
+
+    ssh = {
+      enable = true;
+      enableDefaultConfig = false;
+      matchBlocks = {
+        "*" = {
+          extraOptions = {
+            IdentityAgent = "~/.1password/agent.sock";
+          };
+        };
+        "github.com" = {
+          hostname = "ssh.github.com";
+          port = 443;
+          user = "git";
+        };
+      };
+      includes = [ "~/.ssh/1Password/config" "~/.orbstack/ssh/config" ];
+    };
+
+    ghostty = {
+      enable = true;
+      enableFishIntegration = true;
+    };
+    zed-editor = {
+      enable = true;
+    };
+    vscode = {
+      enable = true;
+    };
+
+    java = {
+      enable = true;
+    };
+    gradle = {
+      enable = true;
+    };
+    go.enable = true;
+    bun.enable = true;
+  };
+}

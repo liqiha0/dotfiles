@@ -1,0 +1,320 @@
+# AeroSpace - i3-like tiling window manager for macOS
+# Vim-style configuration with i3 bindings
+
+# ============================================================
+# General Settings
+# ============================================================
+
+# Start AeroSpace at login
+start-at-login = true
+
+# Commands to run after startup
+after-startup-command = []
+
+# Normalizations
+enable-normalization-flatten-containers = true
+enable-normalization-opposite-orientation-for-nested-containers = true
+
+# Accordion padding (for stacked/tabbed layouts)
+accordion-padding = 30
+
+# Default root container layout: tiles|accordion
+default-root-container-layout = 'tiles'
+
+# Default container orientation: auto|horizontal|vertical
+default-root-container-orientation = 'auto'
+
+# Mouse follows focus
+on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+on-focus-changed = [
+  'move-mouse window-lazy-center',
+  "exec-and-forget osascript -e 'tell application id \"tracesOf.Uebersicht\" to refresh widget id \"simple-bar-index-jsx\"'"
+]
+
+exec-on-workspace-change = [
+  '/bin/zsh',
+  '-c',
+  '/usr/bin/osascript -e "tell application id \"tracesOf.Uebersicht\" to refresh widget id \"simple-bar-index-jsx\""',
+]
+
+# Automatically unhide hidden apps
+automatically-unhide-macos-hidden-apps = true
+
+# Keyboard layout
+[key-mapping]
+preset = 'qwerty'
+
+# ============================================================
+# Gaps Configuration
+# ============================================================
+
+[gaps]
+inner.horizontal = 8
+inner.vertical = 8
+outer.left = 8
+outer.bottom = 40
+outer.top = 8
+outer.right = 8
+
+# ============================================================
+# Main Mode Bindings (alt as modifier, vim-style)
+# ============================================================
+
+[mode.main.binding]
+
+# ---- Window Focus (vim h/j/k/l) ----
+alt-h = 'focus left'
+alt-j = 'focus down'
+alt-k = 'focus up'
+alt-l = 'focus right'
+
+# ---- Window Movement (alt-shift + vim keys) ----
+alt-shift-h = 'move left'
+alt-shift-j = 'move down'
+alt-shift-k = 'move up'
+alt-shift-l = 'move right'
+
+# ---- Split Orientation (i3-style) ----
+# alt-v = split vertical (next window opens below)
+# alt-b = split horizontal (next window opens to the right)
+alt-v = 'split vertical'
+alt-b = 'split horizontal'
+
+# ---- Layout Modes (i3-style) ----
+# alt-s = stacking/accordion layout
+# alt-w = tabbed layout (horizontal accordion)
+# alt-e = toggle split (tiles)
+alt-s = 'layout accordion vertical'
+alt-w = 'layout accordion horizontal'
+alt-e = 'layout tiles horizontal vertical'
+
+# ---- Fullscreen Toggle (i3-style: alt-f) ----
+alt-f = 'fullscreen'
+
+# ---- Close Window (i3-style: alt-shift-q) ----
+alt-shift-q = 'close'
+
+# ---- Floating Toggle ----
+alt-shift-space = 'layout floating tiling'
+
+# ---- Focus DFS traversal ----
+alt-a = 'focus dfs-prev'
+alt-d = 'focus dfs-next'
+
+# ---- Workspace Navigation (1-10) ----
+alt-1 = 'workspace 1'
+alt-2 = 'workspace 2'
+alt-3 = 'workspace 3'
+alt-4 = 'workspace 4'
+alt-5 = 'workspace 5'
+alt-6 = 'workspace 6'
+alt-7 = 'workspace 7'
+alt-8 = 'workspace 8'
+alt-9 = 'workspace 9'
+alt-0 = 'workspace 10'
+
+# ---- Move Window to Workspace ----
+alt-shift-1 = 'move-node-to-workspace 1'
+alt-shift-2 = 'move-node-to-workspace 2'
+alt-shift-3 = 'move-node-to-workspace 3'
+alt-shift-4 = 'move-node-to-workspace 4'
+alt-shift-5 = 'move-node-to-workspace 5'
+alt-shift-6 = 'move-node-to-workspace 6'
+alt-shift-7 = 'move-node-to-workspace 7'
+alt-shift-8 = 'move-node-to-workspace 8'
+alt-shift-9 = 'move-node-to-workspace 9'
+alt-shift-0 = 'move-node-to-workspace 10'
+
+# ---- Workspace Back and Forth ----
+alt-tab = 'workspace-back-and-forth'
+
+# ---- Multi-Monitor Support ----
+# Focus monitors (left/right)
+alt-comma = 'focus-monitor left'
+alt-period = 'focus-monitor right'
+
+# Focus monitors (prev/next cycle)
+alt-bracketleft = 'focus-monitor prev'
+alt-bracketright = 'focus-monitor next'
+
+# Move workspace to monitor
+alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
+alt-ctrl-comma = 'move-workspace-to-monitor prev'
+alt-ctrl-period = 'move-workspace-to-monitor next'
+
+# Move window to monitor
+alt-shift-comma = 'move-node-to-monitor prev'
+alt-shift-period = 'move-node-to-monitor next'
+
+# ---- Quick Resize (without entering resize mode) ----
+alt-minus = 'resize smart -50'
+alt-equal = 'resize smart +50'
+
+# ---- Mode Switching ----
+alt-r = 'mode resize'
+alt-shift-s = 'mode service'
+
+# ---- Reload Config ----
+alt-shift-c = 'reload-config'
+
+# ---- Join Windows ----
+alt-shift-minus = 'join-with left'
+alt-shift-equal = 'join-with right'
+
+# ============================================================
+# Resize Mode (alt-r to enter, Escape/Enter to exit)
+# ============================================================
+
+[mode.resize.binding]
+
+# Resize with vim keys (h/j/k/l)
+h = 'resize width -50'
+j = 'resize height +50'
+k = 'resize height -50'
+l = 'resize width +50'
+
+# Fine-grained resize with shift
+shift-h = 'resize width -10'
+shift-j = 'resize height +10'
+shift-k = 'resize height -10'
+shift-l = 'resize width +10'
+
+# Arrow keys alternative
+left = 'resize width -50'
+down = 'resize height +50'
+up = 'resize height -50'
+right = 'resize width +50'
+
+# Balance/equalize windows
+b = 'balance-sizes'
+
+# Exit resize mode
+escape = 'mode main'
+enter = 'mode main'
+alt-r = 'mode main'
+
+# ============================================================
+# Service Mode (alt-shift-s to enter)
+# ============================================================
+
+[mode.service.binding]
+
+# Flatten workspace tree (reset layout)
+r = ['flatten-workspace-tree', 'mode main']
+
+# Toggle floating/tiling
+f = ['layout floating tiling', 'mode main']
+
+# Close all windows except current
+backspace = ['close-all-windows-but-current', 'mode main']
+
+# Balance all windows
+b = ['balance-sizes', 'mode main']
+
+# Reload config
+c = ['reload-config', 'mode main']
+
+# Join with direction
+alt-shift-h = ['join-with left', 'mode main']
+alt-shift-j = ['join-with down', 'mode main']
+alt-shift-k = ['join-with up', 'mode main']
+alt-shift-l = ['join-with right', 'mode main']
+
+# Volume control
+down = 'volume down'
+up = 'volume up'
+shift-down = ['volume set 0', 'mode main']
+
+# Exit service mode
+escape = 'mode main'
+enter = 'mode main'
+alt-shift-s = 'mode main'
+
+# ============================================================
+# Exec Settings
+# ============================================================
+
+[exec]
+inherit-env-vars = true
+
+# ============================================================
+# Workspace to Monitor Assignment (Multi-Monitor)
+# ============================================================
+
+# Assign workspaces to specific monitors
+# Uncomment and modify based on your monitor setup
+# [workspace-to-monitor-force-assignment]
+# 1 = 'main'
+# 2 = 'main'
+# 3 = 'main'
+# 4 = 'main'
+# 5 = 'main'
+# 6 = 'secondary'
+# 7 = 'secondary'
+# 8 = 'secondary'
+# 9 = 'secondary'
+# 10 = 'secondary'
+
+# Alternative: Assign by monitor pattern
+# 1 = ['built-in', 'main']
+# 6 = ['dell', 'lg', 'secondary']
+
+# ============================================================
+# Application-Specific Rules
+# ============================================================
+
+# System Preferences - always floating
+[[on-window-detected]]
+if.app-id = 'com.apple.systempreferences'
+run = 'layout floating'
+
+[[on-window-detected]]
+if.app-id = 'com.apple.SystemPreferences'
+run = 'layout floating'
+
+# Calculator - floating
+[[on-window-detected]]
+if.app-id = 'com.apple.calculator'
+run = 'layout floating'
+
+# Finder dialogs - floating
+[[on-window-detected]]
+if.app-id = 'com.apple.finder'
+if.window-title-regex-substring = 'Copy|Move|Trash|Connecting|Info'
+run = 'layout floating'
+
+# Archive Utility - floating
+[[on-window-detected]]
+if.app-id = 'com.apple.archiveutility'
+run = 'layout floating'
+
+# Activity Monitor - floating
+[[on-window-detected]]
+if.app-id = 'com.apple.ActivityMonitor'
+run = 'layout floating'
+
+# App Store - floating
+[[on-window-detected]]
+if.app-id = 'com.apple.AppStore'
+run = 'layout floating'
+
+# ============================================================
+# Optional: Move apps to specific workspaces
+# ============================================================
+
+# Uncomment to auto-assign apps to workspaces
+# [[on-window-detected]]
+# if.app-id = 'com.apple.Safari'
+# run = 'move-node-to-workspace 2'
+
+# [[on-window-detected]]
+# if.app-id = 'com.apple.mail'
+# run = 'move-node-to-workspace 4'
+
+# [[on-window-detected]]
+# if.app-id = 'com.spotify.client'
+# run = 'move-node-to-workspace 9'
+
+# [[on-window-detected]]
+# if.app-id = 'com.tinyspeck.slackmacgap'
+# run = 'move-node-to-workspace 5'
