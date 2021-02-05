@@ -1,0 +1,153 @@
+{ config, pkgs, ... }:
+
+let
+  sources = import ./sources.nix { inherit pkgs; };
+  hermes-agent = pkgs.llm-agents.hermes-agent.overridePythonAttrs (old: {
+    dependencies = (old.dependencies or [ ]) ++ [
+      pkgs.python313Packages.python-telegram-bot
+    ];
+  });
+in
+{
+  home.packages = with pkgs; [
+    (pkgs.writeShellScriptBin "acpx" ''
+      exec bunx acpx@latest "$@"
+    '')
+
+    (pkgs.writeShellScriptBin "defuddle" ''
+      exec bunx defuddle@latest "$@"
+    '')
+
+    (pkgs.writeShellScriptBin "codex-acp" ''
+      exec bunx @zed-industries/codex-acp@latest "$@"
+    '')
+
+    hermes-agent
+    llm-agents.mcporter
+    llm-agents.gitnexus
+    llm-agents.rtk
+
+    nixd
+    maestro
+  ];
+
+  home.file = {
+    ".agents/skills/openai/skills" = {
+      source = "${sources.openai-skills}/skills";
+      recursive = true;
+    };
+    ".hermes/skills/bundled" = {
+      source = "${sources.hermes-bundled-skills}/skills";
+      recursive = true;
+    };
+    ".agents/skills/anthropics/skills" = {
+      source = "${sources.anthropics-skills}/skills";
+      recursive = true;
+    };
+    ".agents/skills/openclaw/mcporter" = {
+      source = "${sources.openclaw-skills}/skills/mcporter";
+      recursive = true;
+    };
+    ".agents/skills/openclaw/acpx" = {
+      source = "${sources.acpx-skills}/skills/acpx";
+      recursive = true;
+    };
+    ".agents/skills/prisma/skills" = {
+      source = "${sources.prisma-skills}";
+      recursive = true;
+    };
+    ".agents/skills/kadajett/agent-nestjs-skills/nestjs-best-practices" = {
+      source = "${sources.nestjs-best-practices-skill}";
+      recursive = true;
+    };
+    ".agents/skills/better-auth/skills" = {
+      source = "${sources.better-auth-skills}";
+      recursive = true;
+    };
+    ".agents/skills/vercel-labs/next-skills" = {
+      source = "${sources.next-skills}/skills";
+      recursive = true;
+    };
+    ".agents/skills/abhigyanpatwari/gitnexus" = {
+      source = "${sources.gitnexus}/.claude/skills/gitnexus";
+      recursive = true;
+    };
+    ".agents/skills/upstash/context7" = {
+      source = "${sources.context7}/skills";
+      recursive = true;
+    };
+    ".agents/skills/JuliusBrussee/caveman" = {
+      source = "${sources.caveman}/skills";
+      recursive = true;
+    };
+
+    ".agents/skills/vercel-labs/agent-browser" = {
+      source = "${sources.agent-browser}/skills";
+      recursive = true;
+    };
+    ".agents/skills/vercel-labs/agent-skills" = {
+      source = "${sources.agent-skills}/skills";
+      recursive = true;
+    };
+    ".agents/skills/vercel-labs/skills" = {
+      source = "${sources.vercel-skills}/skills";
+      recursive = true;
+    };
+    ".agents/skills/remotion-dev/remotion" = {
+      source = "${sources.remotion}/.claude/skills";
+      recursive = true;
+    };
+    ".agents/skills/nextlevelbuilder/ui-ux-pro-max" = {
+      source = "${sources.ui-ux-pro-max-skill}/.claude/skills";
+      recursive = true;
+    };
+    ".agents/skills/kepano/obsidian-skills" = {
+      source = "${sources.obsidian-skills}/skills";
+      recursive = true;
+    };
+    ".agents/skills/figma/mcp-server-guide" = {
+      source = "${sources.figma-mcp-server-guide}/skills";
+      recursive = true;
+    };
+    ".agents/skills/expo/skills" = {
+      source = "${sources.expo-skills}/plugins/expo/skills";
+      recursive = true;
+    };
+    ".agents/skills/obra/superpowers" = {
+      source = "${sources.obra-superpowers}/skills";
+      recursive = true;
+    };
+    ".config/opencode/plugins/rtk.ts".source = "${sources.rtk}/hooks/opencode/rtk.ts";
+  };
+
+  programs = {
+    opencode = {
+      enable = true;
+      package = (pkgs.writeShellScriptBin "opencode" ''
+      export OP_SERVICE_ACCOUNT_TOKEN='{{ onepasswordRead "op://3kzndqhe5bky5wj65buh2h4ybi/kpip7secen2mphnpumc4axirlm/credential" }}'
+      exec bunx opencode-ai@latest "$@"
+      '');
+    };
+    codex = {
+      enable = true;
+      package = (pkgs.writeShellScriptBin "codex" ''
+      export OP_SERVICE_ACCOUNT_TOKEN='{{ onepasswordRead "op://3kzndqhe5bky5wj65buh2h4ybi/kpip7secen2mphnpumc4axirlm/credential" }}'
+      exec bunx @openai/codex@latest "$@"
+      '');
+    };
+    claude-code = {
+      enable = true;
+      package = (pkgs.writeShellScriptBin "claude" ''
+      export OP_SERVICE_ACCOUNT_TOKEN='{{ onepasswordRead "op://3kzndqhe5bky5wj65buh2h4ybi/kpip7secen2mphnpumc4axirlm/credential" }}'
+      exec bunx @anthropic-ai/claude-code "$@"
+      '');
+    };
+    gemini-cli = {
+      enable = true;
+      package = (pkgs.writeShellScriptBin "gemini" ''
+      export OP_SERVICE_ACCOUNT_TOKEN='{{ onepasswordRead "op://3kzndqhe5bky5wj65buh2h4ybi/kpip7secen2mphnpumc4axirlm/credential" }}'
+      exec bunx @google/gemini-cli "$@"
+      '');
+    };
+  };
+}

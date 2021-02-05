@@ -1,0 +1,68 @@
+{
+  "preset": "manual",
+  "presets": {
+    "manual": {
+      "orchestrator": {
+        "model": "openai/gpt-5.4",
+        "skills": [
+          "*"
+        ],
+        "mcps": [
+          "*"
+        ],
+        "temperature": 1
+      },
+      "oracle": {
+        "model": "openai/gpt-5.4",
+        "variant": "high",
+        "skills": [
+          "*"
+        ],
+        "mcps": [
+          "*"
+        ],
+        "temperature": 1
+      },
+      "designer": {
+        "model": "openai/gpt-5.4",
+        "skills": [
+          "*"
+        ],
+        "mcps": [
+          "*"
+        ],
+        "temperature": 1
+      },
+      "explorer": {
+        "model": "openai/gpt-5.4-mini",
+        "skills": [
+          "*"
+        ],
+        "mcps": [
+          "*"
+        ],
+        "temperature": 1
+      },
+      "librarian": {
+        "model": "openai/gpt-5.4",
+        "skills": [
+          "*"
+        ],
+        "mcps": [
+          "*"
+        ],
+        "temperature": 1
+      },
+      "fixer": {
+        "model": "openai/gpt-5.4",
+        "skills": [
+          "*"
+        ],
+        "mcps": [
+          "*"
+        ],
+        "temperature": 1
+      }
+    }
+  }
+}
