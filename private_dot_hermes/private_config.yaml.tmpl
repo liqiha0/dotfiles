@@ -1,0 +1,171 @@
+model:
+  provider: openai-codex
+  default: gpt-6-sol
+  supports_vision: true
+providers:
+  cpa:
+    api: https://ai.liqiha0.i234.me:8443/v1
+    api_key: {{ onepasswordRead "op://w7pdf7kq2qdntrhsfunxeozuxa/gyeqkp5wyourmatxkk6hde2o6u/credential" }}
+    transport: codex_responses
+    models:
+      gpt-5.6-terra:
+        context_length: 272000
+      gpt-5.6-sol:
+        context_length: 272000
+      gpt-6-astra:
+        context_length: 272000
+agent:
+  reasoning_effort: high
+web:
+  backend: ddgs
+browser:
+  backend: browser-use
+  cloud_provider: local
+compression:
+  threshold: 0.95
+auxiliary:
+  approval:
+    provider: openai-codex
+    model: gpt-6-luna
+  title_generation:
+    provider: openai-codex
+    model: gpt-6-luna
+  web_extract:
+    provider: openai-codex
+    model: gpt-6-luna
+display:
+  interface: tui
+  tool_progress: all
+memory:
+  provider: hindsight
+skills:
+  external_dirs:
+    - ~/.agents/skills
+plugins:
+  enabled:
+    - herdr-agent-state
+gateway:
+  streaming:
+    enabled: true
+computer_use:
+  backend: cua
+_config_version: 44
+session_reset:
+  mode: both
+  idle_minutes: 1440
+  at_hour: 6
+platform_toolsets:
+  cli:
+    - a2a
+    - browser
+    - clarify
+    - code_execution
+    - computer_use
+    - connections
+    - context_engine
+    - cronjob
+    - delegation
+    - file
+    - image_gen
+    - kanban
+    - memory
+    - session_search
+    - skills
+    - terminal
+    - todo
+    - tts
+    - vision
+    - web
+  telegram:
+    - a2a
+    - browser
+    - clarify
+    - code_execution
+    - computer_use
+    - connections
+    - context_engine
+    - cronjob
+    - delegation
+    - file
+    - image_gen
+    - kanban
+    - memory
+    - session_search
+    - skills
+    - terminal
+    - todo
+    - tts
+    - vision
+    - web
+known_plugin_toolsets:
+  telegram:
+    - a2a
+    - spotify
+  cli:
+    - a2a
+    - spotify
+known_builtin_toolsets:
+  telegram:
+    - browser
+    - clarify
+    - code_execution
+    - computer_use
+    - connections
+    - context_engine
+    - cronjob
+    - delegation
+    - discord
+    - discord_admin
+    - file
+    - homeassistant
+    - image_gen
+    - kanban
+    - memory
+    - session_search
+    - skills
+    - spotify
+    - stt
+    - terminal
+    - todo
+    - tts
+    - video
+    - video_gen
+    - vision
+    - web
+    - x_search
+    - yuanbao
+  cli:
+    - browser
+    - clarify
+    - code_execution
+    - computer_use
+    - connections
+    - context_engine
+    - cronjob
+    - delegation
+    - discord
+    - discord_admin
+    - file
+    - homeassistant
+    - image_gen
+    - kanban
+    - memory
+    - session_search
+    - skills
+    - spotify
+    - stt
+    - terminal
+    - todo
+    - tts
+    - video
+    - video_gen
+    - vision
+    - web
+    - x_search
+    - yuanbao
+image_gen:
+  provider: openai-codex
+  model: gpt-image-2.5-flare
+vault:
+  onepassword:
+    account: my

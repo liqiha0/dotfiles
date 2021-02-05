@@ -1,0 +1,22 @@
+{
+  "mode": "local_external",
+  "apiKey": "",
+  "timeout": 120,
+  "idle_timeout": 300,
+  "retain_tags": "",
+  "observation_scopes": "",
+  "retain_source": "",
+  "retain_user_prefix": "User",
+  "retain_assistant_prefix": "Assistant",
+  "banks": {
+    "hermes": {
+      "bankId": "hermes-zsj",
+      "budget": "mid",
+      "enabled": true
+    }
+  },
+  "api_url": "http://127.0.0.1:8888",
+  "bank_id": "hermes-zsj",
+  "recall_budget": "mid",
+  "recall_sync": true
+}

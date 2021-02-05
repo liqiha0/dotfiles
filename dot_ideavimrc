@@ -1,0 +1,22 @@
+let mapleader="\<space>"
+
+" --- IdeaVim Specific Settings ---
+set keep-english-in-normal
+set ideajoin
+
+" --- Plugins ---
+" specific plugins might require installing additional extensions from the JetBrains Marketplace
+" (e.g. IdeaVim-EasyMotion, IdeaVim-Extension)
+
+" Ported Vim Plugins (Modern 'Plug' syntax recommended)
+Plug 'easymotion/vim-easymotion'
+Plug 'preservim/nerdtree'
+Plug 'tpope/vim-surround'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'tpope/vim-commentary'
+Plug 'vim-scripts/argtextobj.vim'
+Plug 'machakann/vim-highlightedyank'
+
+" --- Mappings ---
+nnoremap <Leader>T :NERDTreeToggle<CR>
+nnoremap <Leader>f :action ReformatCode<CR>:action OptimizeImports<CR>:w<CR>
