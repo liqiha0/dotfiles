@@ -1,0 +1,16 @@
+approval_policy = "untrusted"
+sandbox_mode = "workspace-write"
+model = "gpt-5-codex"
+web_search_request = true
+model_reasoning_effort = "medium"
+
+[sandbox_workspace_write]
+network_access = true
+
+[mcp_servers.context7]
+command = "pnpm"
+args = ["dlx", "@upstash/context7-mcp"]
+
+[mcp_servers.playwright]
+command = "pnpm"
+args = ["dlx", "@playwright/mcp@latest", "--isolated"]
