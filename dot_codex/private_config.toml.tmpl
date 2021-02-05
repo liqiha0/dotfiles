@@ -1,0 +1,32 @@
+openai_base_url = "https://ai.liqiha0.i234.me:8443/v1"
+model = "gpt-5.5"
+model_reasoning_effort = "high"
+web_search = "live"
+sandbox_mode = "danger-full-access"
+approval_policy = "never"
+
+[features]
+js_repl = true
+terminal_resize_reflow = true
+
+[mcp_servers.deepwiki]
+url = "https://mcp.deepwiki.com/mcp"
+
+[mcp_servers.gitnexus]
+command = "bunx"
+args = ["gitnexus", "mcp"]
+
+[mcp_servers.figma]
+url = "https://mcp.figma.com/mcp"
+
+[mcp_servers.stitch]
+url = "https://stitch.googleapis.com/mcp"
+http_headers = { "X-Goog-Api-Key" = "{{ onepasswordRead "op://w7pdf7kq2qdntrhsfunxeozuxa/k2qj75u7o5xsuzsp3uoohm2fyq/credential" }}" }
+
+[mcp_servers.mobile-mcp]
+command = "bunx"
+args = ["@mobilenext/mobile-mcp@latest"]
+
+[mcp_servers.maestro]
+command = "maestro"
+args = ["mcp"]

@@ -1,0 +1,54 @@
+model:
+  default: gpt-5.5
+  provider: custom
+  base_url: https://ai.liqiha0.i234.me:8443/v1
+  api_key: {{ onepasswordRead "op://w7pdf7kq2qdntrhsfunxeozuxa/gyeqkp5wyourmatxkk6hde2o6u/credential" }}
+compression:
+  threshold: 0.95
+display:
+  tool_progress: all
+_config_version: 23
+custom_providers:
+  - name: Local (localhost:8317)
+    base_url: http://localhost:8317/v1
+    model: gpt-5.5
+session_reset:
+  mode: both
+  idle_minutes: 1440
+  at_hour: 6
+platform_toolsets:
+  cli:
+    - browser
+    - clarify
+    - code_execution
+    - computer_use
+    - cronjob
+    - delegation
+    - file
+    - memory
+    - messaging
+    - session_search
+    - skills
+    - terminal
+    - todo
+    - tts
+    - vision
+  telegram:
+    - browser
+    - clarify
+    - code_execution
+    - computer_use
+    - cronjob
+    - delegation
+    - file
+    - memory
+    - messaging
+    - session_search
+    - skills
+    - terminal
+    - todo
+    - tts
+    - vision
+skills:
+  external_dirs:
+    - ~/.agents/skills
