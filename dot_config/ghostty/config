@@ -1,0 +1,10 @@
+font-family = JetBrainsMono Nerd Font
+font-size = 14
+
+theme = Catppuccin Frappe
+background-opacity = 0.85
+background-blur-radius = 30
+
+macos-titlebar-style = hidden
+gtk-titlebar = false
+
