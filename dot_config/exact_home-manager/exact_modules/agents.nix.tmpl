@@ -1,0 +1,144 @@
+{ config, lib, pkgs, ... }:
+
+let
+  sources = import ./sources.nix { inherit pkgs; };
+in
+{
+  home.sessionVariables = {
+    OPENAI_API_KEY = "{{ onepasswordRead "op://w7pdf7kq2qdntrhsfunxeozuxa/gyeqkp5wyourmatxkk6hde2o6u/credential" }}";
+  };
+
+  home.packages = with pkgs; [
+    (pkgs.writeShellScriptBin "acpx" ''
+      exec bunx acpx@latest "$@"
+    '')
+
+    (pkgs.writeShellScriptBin "defuddle" ''
+      exec bunx defuddle@latest "$@"
+    '')
+
+    (pkgs.writeShellScriptBin "codex-acp" ''
+      exec bunx @zed-industries/codex-acp@latest "$@"
+    '')
+
+    (pkgs.writeShellScriptBin "paseo" ''
+      exec bunx @getpaseo/cli "$@"
+    '')
+
+    (pkgs.writeShellScriptBin "gsd-sdk" ''
+      exec bunx @gsd-build/sdk "$@"
+    '')
+
+    llm-agents.agent-browser
+    llm-agents.hermes-agent
+    llm-agents.mcporter
+    llm-agents.gitnexus
+
+    nixd
+    maestro
+  ];
+
+  home.file = {
+    ".agents/skills/openai/skills" = {
+      source = "${sources.openai-skills}/skills";
+    };
+    ".agents/skills/anthropics/skills" = {
+      source = "${sources.anthropics-skills}/skills";
+    };
+    ".agents/skills/openclaw/mcporter" = {
+      source = "${sources.openclaw-skills}/skills/mcporter";
+    };
+    ".agents/skills/openclaw/acpx" = {
+      source = "${sources.acpx-skills}/skills/acpx";
+    };
+
+    ".agents/skills/prisma/skills" = {
+      source = "${sources.prisma-skills}";
+    };
+    ".agents/skills/kadajett/agent-nestjs-skills/nestjs-best-practices" = {
+      source = "${sources.nestjs-best-practices-skill}";
+    };
+    ".agents/skills/better-auth/skills" = {
+      source = "${sources.better-auth-skills}";
+    };
+    ".agents/skills/vercel-labs/next-skills" = {
+      source = "${sources.next-skills}/skills";
+    };
+    ".agents/skills/remotion-dev/skills" = {
+      source = "${sources.remotion-skills}/skills";
+    };
+    ".agents/skills/expo/skills" = {
+      source = "${sources.expo-skills}/plugins/expo/skills";
+    };
+
+    ".agents/skills/abhigyanpatwari/gitnexus" = {
+      source = "${sources.gitnexus}/.claude/skills/gitnexus";
+    };
+    ".agents/skills/upstash/context7" = {
+      source = "${sources.context7}/skills";
+    };
+    ".agents/skills/JuliusBrussee/caveman" = {
+      source = "${sources.caveman}/skills";
+    };
+    ".agents/skills/vercel-labs/agent-browser" = {
+      source = "${sources.agent-browser}/skills";
+    };
+    ".agents/skills/vercel-labs/agent-skills" = {
+      source = "${sources.agent-skills}/skills";
+    };
+    ".agents/skills/vercel-labs/skills" = {
+      source = "${sources.vercel-skills}/skills";
+    };
+    ".agents/skills/nextlevelbuilder/ui-ux-pro-max" = {
+      source = "${sources.ui-ux-pro-max-skill}/.claude/skills";
+    };
+    ".agents/skills/kepano/obsidian-skills" = {
+      source = "${sources.obsidian-skills}/skills";
+    };
+    ".agents/skills/figma/mcp-server-guide" = {
+      source = "${sources.figma-mcp-server-guide}/skills";
+    };
+    ".agents/skills/wechatpay-apiv3/wechatpay-skills" = {
+      source = "${sources.wechatpay-skills}";
+    };
+    ".agents/skills/mattpocock/skills" = {
+      source = "${sources.mattpocock-skills}/skills";
+    };
+
+
+    ".hermes/skills/bundled" = {
+      source = "${sources.hermes-bundled-skills}/skills";
+    };
+  };
+
+  programs = {
+    opencode = {
+      enable = true;
+      package = (pkgs.writeShellScriptBin "opencode" ''
+      export OP_SERVICE_ACCOUNT_TOKEN='{{ onepasswordRead "op://3kzndqhe5bky5wj65buh2h4ybi/kpip7secen2mphnpumc4axirlm/credential" }}'
+      exec bunx --silent opencode-ai@latest "$@"
+      '');
+    };
+    codex = {
+      enable = true;
+      package = (pkgs.writeShellScriptBin "codex" ''
+      export OP_SERVICE_ACCOUNT_TOKEN='{{ onepasswordRead "op://3kzndqhe5bky5wj65buh2h4ybi/kpip7secen2mphnpumc4axirlm/credential" }}'
+      exec bunx @openai/codex@latest "$@"
+      '');
+    };
+    claude-code = {
+      enable = true;
+      package = (pkgs.writeShellScriptBin "claude" ''
+      export OP_SERVICE_ACCOUNT_TOKEN='{{ onepasswordRead "op://3kzndqhe5bky5wj65buh2h4ybi/kpip7secen2mphnpumc4axirlm/credential" }}'
+      exec bunx @anthropic-ai/claude-code "$@"
+      '');
+    };
+    gemini-cli = {
+      enable = true;
+      package = (pkgs.writeShellScriptBin "gemini" ''
+      export OP_SERVICE_ACCOUNT_TOKEN='{{ onepasswordRead "op://3kzndqhe5bky5wj65buh2h4ybi/kpip7secen2mphnpumc4axirlm/credential" }}'
+      exec bunx @google/gemini-cli "$@"
+      '');
+    };
+  };
+}

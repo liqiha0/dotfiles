@@ -1,0 +1,95 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "plugin": [
+    "oh-my-opencode-slim@latest",
+    "opencode-pty@latest",
+    "@franlol/opencode-md-table-formatter@latest"
+  ],
+  "model": "openai/gpt-5.4",
+  "small_model": "openai/gpt-5.4-mini",
+  "server": {
+    "mdns": true
+  },
+  "permission": {
+    "external_directory": {
+      "~/Documents/Obsidian Vault/**": "allow",
+      "/tmp/**": "allow",
+      "~/.config/opencode/get-shit-done/*": "allow"
+    }
+  },
+  "mcp": {
+    "deepwiki": {
+      "type": "remote",
+      "url": "https://mcp.deepwiki.com/mcp"
+    },
+    "figma": {
+      "type": "remote",
+      "url": "http://127.0.0.1:3845/mcp"
+    },
+    "gitnexus": {
+      "type": "local",
+      "command": [
+        "bunx",
+        "gitnexus",
+        "mcp"
+      ]
+    },
+    "mobile-mcp": {
+      "type": "local",
+      "command": [
+        "bunx",
+        "@mobilenext/mobile-mcp@latest"
+      ]
+    },
+    "maestro": {
+      "type": "local",
+      "command": [
+        "maestro",
+        "mcp"
+      ]
+    }
+  },
+  "agent": {
+    "explore": {
+      "disable": true
+    }
+  },
+  "provider": {
+    "openai": {
+      "options": {
+        "baseURL": "http://localhost:8317/v1",
+        "apiKey": "{{ onepasswordRead "op://w7pdf7kq2qdntrhsfunxeozuxa/gyeqkp5wyourmatxkk6hde2o6u/credential" }}"
+      }
+    },
+    "google": {
+      "options": {
+        "baseURL": "http://localhost:8317/v1beta",
+        "apiKey": "{{ onepasswordRead "op://w7pdf7kq2qdntrhsfunxeozuxa/gyeqkp5wyourmatxkk6hde2o6u/credential" }}"
+      },
+    },
+    "deepseek": {
+      "options": {
+        "baseURL": "http://localhost:8317/v1",
+        "apiKey": "{{ onepasswordRead "op://w7pdf7kq2qdntrhsfunxeozuxa/gyeqkp5wyourmatxkk6hde2o6u/credential" }}"
+      },
+    },
+    "zai": {
+      "options": {
+        "baseURL": "http://localhost:8317/v1",
+        "apiKey": "{{ onepasswordRead "op://w7pdf7kq2qdntrhsfunxeozuxa/gyeqkp5wyourmatxkk6hde2o6u/credential" }}"
+      },
+    },
+    "moonshotai": {
+      "options": {
+        "baseURL": "http://localhost:8317/v1",
+        "apiKey": "{{ onepasswordRead "op://w7pdf7kq2qdntrhsfunxeozuxa/gyeqkp5wyourmatxkk6hde2o6u/credential" }}"
+      },
+    },
+    "minimax": {
+      "options": {
+        "baseURL": "http://localhost:8317/v1",
+        "apiKey": "{{ onepasswordRead "op://w7pdf7kq2qdntrhsfunxeozuxa/gyeqkp5wyourmatxkk6hde2o6u/credential" }}"
+      },
+    }
+  }
+}
