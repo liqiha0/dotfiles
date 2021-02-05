@@ -1,0 +1,139 @@
+_config_version: 33
+model:
+  provider: custom:cpa
+  default: gpt-5.6-sol
+  context_length: 258000
+  supports_vision: true
+providers:
+  cpa:
+    api: https://ai.liqiha0.i234.me:8443/v1
+    api_key: {{ onepasswordRead "op://w7pdf7kq2qdntrhsfunxeozuxa/gyeqkp5wyourmatxkk6hde2o6u/credential" }}
+    transport: codex_responses
+agent:
+  verify_on_stop: false
+  reasoning_effort: high
+web:
+  backend: ddgs
+  use_gateway: false
+browser:
+  cloud_provider: local
+  use_gateway: false
+compression:
+  threshold: 0.95
+auxiliary:
+  web_extract:
+    provider: custom:cpa
+    model: gpt-5.6-luna
+  approval:
+    provider: custom:cpa
+    model: gpt-5.6-luna
+  title_generation:
+    provider: custom:cpa
+    model: gpt-5.6-luna
+display:
+  interface: tui
+  tool_progress: all
+memory:
+  provider: hindsight
+skills:
+  external_dirs:
+    - ~/.agents/skills
+approvals:
+  mode: smart
+gateway:
+  streaming:
+    enabled: true
+session_reset:
+  mode: both
+  idle_minutes: 1440
+  at_hour: 6
+image_gen:
+  provider: openai
+  use_gateway: false
+  model: gpt-image-2-medium
+plugins:
+  enabled:
+    - herdr-agent-state
+platform_toolsets:
+  cli:
+    - browser
+    - clarify
+    - code_execution
+    - computer_use
+    - context_engine
+    - cronjob
+    - delegation
+    - file
+    - image_gen
+    - memory
+    - session_search
+    - skills
+    - terminal
+    - todo
+    - tts
+    - vision
+    - web
+known_plugin_toolsets:
+  telegram:
+    - a2a
+    - spotify
+  cli:
+    - a2a
+    - spotify
+known_builtin_toolsets:
+  telegram:
+    - bfl
+    - browser
+    - clarify
+    - code_execution
+    - computer_use
+    - context_engine
+    - cronjob
+    - delegation
+    - discord
+    - discord_admin
+    - file
+    - homeassistant
+    - image_gen
+    - memory
+    - session_search
+    - skills
+    - spotify
+    - stt
+    - terminal
+    - todo
+    - tts
+    - video
+    - video_gen
+    - vision
+    - web
+    - x_search
+    - yuanbao
+  cli:
+    - bfl
+    - browser
+    - clarify
+    - code_execution
+    - computer_use
+    - context_engine
+    - cronjob
+    - delegation
+    - discord
+    - discord_admin
+    - file
+    - homeassistant
+    - image_gen
+    - memory
+    - session_search
+    - skills
+    - spotify
+    - stt
+    - terminal
+    - todo
+    - tts
+    - video
+    - video_gen
+    - vision
+    - web
+    - x_search
+    - yuanbao
