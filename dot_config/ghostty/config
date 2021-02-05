@@ -1,0 +1,10 @@
+font-family = Maple Mono NF CN
+font-size = 14
+
+theme = light:Everforest Light Med,dark:Everforest Dark Hard
+background-opacity = 0.85
+background-blur-radius = 30
+
+macos-titlebar-style = hidden
+gtk-titlebar = false
+

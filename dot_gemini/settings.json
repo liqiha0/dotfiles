@@ -1,0 +1,55 @@
+{
+  "context": {
+    "fileName": [
+      "GEMINI.md",
+      "AGENTS.md"
+    ]
+  },
+  "general": {
+    "preferredEditor": "neovim",
+    "vimMode": true,
+    "checkpointing": {
+      "enabled": false
+    },
+    "previewFeatures": true
+  },
+  "tools": {
+    "shell": {
+      "showColor": true
+    },
+    "autoAccept": true
+  },
+  "security": {
+    "auth": {
+      "selectedType": "oauth-personal"
+    }
+  },
+  "ui": {
+    "theme": "Default"
+  },
+  "mcpServers": {
+    "spec-workflow": {
+      "command": "pnpm",
+      "args": [
+        "dlx",
+        "@pimzino/spec-workflow-mcp@latest"
+      ]
+    },
+    "context7": {
+      "command": "pnpm",
+      "args": [
+        "dlx",
+        "@upstash/context7-mcp@latest"
+      ]
+    },
+    "obsidian": {
+      "command": "uvx",
+      "args": [
+        "mcp-obsidian"
+      ],
+      "env": {
+        "OBSIDIAN_API_KEY": "672db5afde5e4f2e94674feb9fa922446b1b890ad26cd45b6aa2cb593aa75176"
+      }
+    }
+  }
+}

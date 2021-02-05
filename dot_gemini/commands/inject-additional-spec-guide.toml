@@ -1,0 +1,20 @@
+description = "注入 Spec Workflow 额外指南"
+prompt = """
+在使用 Spec Workflow 进行开发时，请严格遵守以下额外操作指南：
+
+- **阅读MCP指南**
+   - 确保通过 Spec Worklow MCP 提供的工具阅读过全部指南
+
+- **Workspace 工作模式**
+   - 必须采用 `jj workspace` 或 `git worktree` 模式来物理隔离每个 Spec 的工作空间。
+   - 在 Spec 文档设计阶段，必须提前规划并明确指定 Worktree 的名称。
+
+- **多仓库 (Multi-repo) 隔离**
+   - 如果 Spec 涉及多个 Git 仓库，必须创建一个独立的目录来统一存放这些相关的 Workspace，以保持工作区整洁。
+
+- **强制中文文档**
+   - 所有 Spec Workflow 相关的文档（包括需求、设计、任务列表等）必须全部使用**中文**编写。
+
+- **目录路径约束**
+   - 必须且只能使用当前工作空间根目录下的 `.spec-workflow` 目录存放所有文档。
+"""
