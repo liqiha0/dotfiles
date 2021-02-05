@@ -1,0 +1,208 @@
+{ config, pkgs, ... }:
+
+{
+  imports = [
+    ./modules/neovim.nix
+  ];
+
+  home.stateVersion = "25.11";
+
+  nixpkgs.config.allowUnfree = true;
+
+  home.language = {
+    base = "zh_CN.UTF-8";
+  };
+
+  home.packages = with pkgs; [
+    wget
+    unzip
+    kubectl
+    chafa
+    talosctl
+    kubernetes-helm
+    _1password-cli
+    devbox
+    pack
+    httpie
+    pandoc
+    fx
+    yq
+    dust
+    curlie
+    gping
+    gitlab-ci-local
+    sshpass
+    tree-sitter
+    gcc
+    nerd-fonts.jetbrains-mono # Add JetBrains Mono Nerd Font
+
+    (pkgs.writeShellScriptBin "gemini" ''
+      exec pnpm dlx @google/gemini-cli "$@"
+    '')
+    (pkgs.writeShellScriptBin "codex" ''
+      exec pnpm dlx @openai/codex "$@"
+    '')
+    (pkgs.writeShellScriptBin "codex-acp" ''
+      exec pnpm dlx @zed-industries/codex-acp "$@"
+    '')
+
+    tldr
+    cht-sh
+    navi
+
+    deno
+    nodejs_22
+    pnpm
+    cargo
+    rustc
+    uv
+    php
+
+    delta
+  ];
+
+  home.sessionVariables = {
+  };
+
+  home.sessionPath = [
+  ];
+
+  home.shellAliases = {
+    posting = "uvx posting";
+    specify = "uvx --from git+https://github.com/github/spec-kit.git specify";
+  };
+
+  programs = {
+    home-manager.enable = true;
+    java = {
+      enable = true;
+    };
+    gradle = {
+      enable = true;
+    };
+    go.enable = true;
+
+    fish = {
+      enable = true;
+      interactiveShellInit = ''
+        if set -q NVIM
+          fish_default_key_bindings
+          set -g fish_key_bindings fish_default_key_bindings
+        else
+          fish_vi_key_bindings
+          set -g fish_key_bindings fish_vi_key_bindings
+        end
+        set -e -U fish_key_bindings
+        set fish_greeting
+      '';
+    };
+    nushell = {
+      enable = true;
+    };
+    starship = {
+      enable = true;
+    };
+    zellij = {
+      enable = true;
+    };
+    zoxide = {
+      enable = true;
+      enableFishIntegration = true;
+    };
+    eza = {
+      enable = true;
+    };
+    yazi = {
+      enable = true;
+      enableFishIntegration = true;
+    };
+    bottom = {
+      enable = true;
+    };
+    jq = {
+      enable = true;
+    };
+    bat.enable = true;
+    k9s.enable = true;
+    lazygit.enable = true;
+    lazydocker.enable = true;
+    gh.enable = true;
+    gh-dash.enable = true;
+
+    git = {
+      enable = true;
+      settings = {
+        user = {
+          name = "liqihao";
+          email = "liqiha0@outlook.com";
+        };
+        core = {
+          autocrlf = "input";
+        };
+        init = {
+          defaultBranch = "master";
+        };
+      };
+    };
+    delta.enable = true;
+    jujutsu = {
+      enable = true;
+      settings = {
+        user = {
+          name = "liqihao";
+          email = "liqiha0@outlook.com";
+        };
+      };
+    };
+    jjui.enable = true;
+
+    fzf.enable = true;
+    fd.enable = true;
+    ripgrep.enable = true;
+
+    helix = {
+      enable = true;
+    };
+
+    ssh = {
+      enable = true;
+      enableDefaultConfig = false;
+      matchBlocks = {
+        "*" = {
+          extraOptions = {
+            IdentityAgent = "\"~/.1password/agent.sock\"";
+          };
+        };
+        "github.com" = {
+          hostname = "ssh.github.com";
+          port = 443;
+          user = "git";
+        };
+      };
+      includes = [ "~/.orbstack/ssh/config" ];
+    };
+
+    ghostty = {
+      enable = true;
+      enableFishIntegration = true;
+    };
+
+    neovide = {
+      enable = true;
+      settings = {
+        fork = true;
+        frame = "transparent";
+        font = {
+          normal = [ "JetBrainsMono Nerd Font" ];
+          size = 14.0;
+        };
+      };
+    };
+
+    zen-browser.enable = true;
+
+    anki = {
+        enable = true;
+    };
+  };
+}

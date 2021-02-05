@@ -1,0 +1,69 @@
+{
+  description = "Home Manager configuration of liqihao";
+
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    zen-browser = {
+      url = "github:0xc000022070/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+  };
+    caelestia-shell = {
+      url = "github:caelestia-dots/shell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    dgop = {
+      url = "github:AvengeMedia/dgop";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    dankMaterialShell = {
+      url = "github:AvengeMedia/DankMaterialShell";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.dgop.follows = "dgop";
+    };
+    niri = {
+      url = "github:sodiboo/niri-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+  };
+
+  outputs = { nixpkgs, home-manager, ... }@inputs:
+    let
+      mkHome = system: modules:
+        home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.${system};
+          inherit modules;
+        };
+    in {
+      legacyPackages = {
+        "x86_64-linux" = {
+          homeConfigurations."liqihao" = mkHome "x86_64-linux" [
+            ./home.nix
+            ./nixos-home.nix
+            inputs.nixvim.homeModules.nixvim
+            inputs.zen-browser.homeModules.default
+            inputs.caelestia-shell.homeManagerModules.default
+            inputs.niri.homeModules.niri
+            inputs.dankMaterialShell.homeModules.dankMaterialShell.default
+            inputs.dankMaterialShell.homeModules.dankMaterialShell.niri
+          ];
+        };
+
+        "aarch64-darwin" = {
+          homeConfigurations."liqihao" = mkHome "aarch64-darwin" [
+            ./home.nix
+            ./darwin-home.nix
+            inputs.nixvim.homeModules.nixvim
+            inputs.zen-browser.homeModules.default
+          ];
+        };
+      };
+    };
+}
