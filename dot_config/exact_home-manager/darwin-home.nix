@@ -1,0 +1,37 @@
+{ config, inputs, ... }:
+
+{
+  imports = [
+    ./modules/gui.nix
+  ];
+
+  home.username = "liqihao";
+  home.homeDirectory = "/Users/liqihao";
+  programs = {
+    fish = {
+      shellInit = "eval \"$(/opt/homebrew/bin/brew shellenv)\"";
+    };
+    zellij = {
+      enableFishIntegration = false;
+    };
+  };
+
+  home.file = {
+    ".1password/agent.sock".source =
+      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock";
+    "Library/Rime" = {
+      source = inputs."iDvel-rime-ice";
+      recursive = true;
+    };
+    "Documents/Obsidian Vault".source =
+      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Library/Mobile Documents/iCloud~md~obsidian/Documents";
+
+    "workspace".source = config.lib.file.mkOutOfStoreSymlink "/Volumes/Persist/workspace";
+    ".gradle/caches".source = config.lib.file.mkOutOfStoreSymlink "/Volumes/Persist/.gradle/caches";
+    ".gradle/jdks".source = config.lib.file.mkOutOfStoreSymlink "/Volumes/Persist/.gradle/jdks";
+    ".android".source = config.lib.file.mkOutOfStoreSymlink "/Volumes/Persist/.android";
+    ".lmstudio/models".source = config.lib.file.mkOutOfStoreSymlink "/Volumes/Persist/.lmstudio/models";
+    "Library/Android".source = config.lib.file.mkOutOfStoreSymlink "/Volumes/Persist/Library/Android";
+    "Library/Caches/JetBrains".source = config.lib.file.mkOutOfStoreSymlink "/Volumes/Persist/Library/Caches/JetBrains";
+  };
+}
