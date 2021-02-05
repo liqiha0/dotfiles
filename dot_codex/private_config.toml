@@ -1,0 +1,5 @@
+model = "gpt-5.4"
+
+[features]
+js_repl = true
+
