@@ -1,0 +1,141 @@
+{ config, githubRepos, lib, pkgs, ... }:
+
+{
+  home.sessionVariables = {
+    OPENAI_API_BASE = "http://localhost:8317/v1";
+    OPENAI_API_KEY = "{{ onepasswordRead "op://w7pdf7kq2qdntrhsfunxeozuxa/gyeqkp5wyourmatxkk6hde2o6u/credential" }}";
+  };
+
+  home.packages = with pkgs; [
+    (pkgs.writeShellScriptBin "acpx" ''
+      exec bunx acpx@latest "$@"
+    '')
+
+    (pkgs.writeShellScriptBin "defuddle" ''
+      exec bunx defuddle@latest "$@"
+    '')
+
+    (pkgs.writeShellScriptBin "codex-acp" ''
+      exec bunx @zed-industries/codex-acp@latest "$@"
+    '')
+
+    (pkgs.writeShellScriptBin "paseo" ''
+      exec bunx @getpaseo/cli "$@"
+    '')
+
+    llm-agents.agent-browser
+    llm-agents.hermes-agent
+    llm-agents.mcporter
+    llm-agents.gitnexus
+
+    nixd
+    maestro
+  ];
+
+  home.file = {
+    ".agents/skills/openai/skills" = {
+      source = "${githubRepos."openai"."skills"}/skills";
+    };
+    ".agents/skills/anthropics/skills" = {
+      source = "${githubRepos."anthropics"."skills"}/skills";
+    };
+    ".agents/skills/openclaw/mcporter" = {
+      source = "${githubRepos."openclaw"."openclaw"}/skills/mcporter";
+    };
+    ".agents/skills/openclaw/acpx" = {
+      source = "${githubRepos."openclaw"."acpx"}/skills/acpx";
+    };
+
+    ".agents/skills/prisma/skills" = {
+      source = "${githubRepos."prisma"."skills"}";
+    };
+    ".agents/skills/kadajett/agent-nestjs-skills" = {
+      source = "${githubRepos."kadajett"."agent-nestjs-skills"}";
+    };
+    ".agents/skills/better-auth/skills" = {
+      source = "${githubRepos."better-auth"."skills"}";
+    };
+    ".agents/skills/vercel-labs/next-skills" = {
+      source = "${githubRepos."vercel-labs"."next-skills"}/skills";
+    };
+    ".agents/skills/remotion-dev/skills" = {
+      source = "${githubRepos."remotion-dev"."skills"}/skills";
+    };
+    ".agents/skills/expo/skills" = {
+      source = "${githubRepos."expo"."skills"}/plugins/expo/skills";
+    };
+
+    ".agents/skills/abhigyanpatwari/gitnexus" = {
+      source = "${githubRepos."abhigyanpatwari"."gitnexus"}/.claude/skills/gitnexus";
+    };
+    ".agents/skills/upstash/context7" = {
+      source = "${githubRepos."upstash"."context7"}/skills";
+    };
+    ".agents/skills/JuliusBrussee/caveman" = {
+      source = "${githubRepos."JuliusBrussee"."caveman"}/skills";
+    };
+    ".agents/skills/vercel-labs/agent-browser" = {
+      source = "${githubRepos."vercel-labs"."agent-browser"}/skills";
+    };
+    ".agents/skills/vercel-labs/agent-skills" = {
+      source = "${githubRepos."vercel-labs"."agent-skills"}/skills";
+    };
+    ".agents/skills/vercel-labs/skills" = {
+      source = "${githubRepos."vercel-labs"."skills"}/skills";
+    };
+    ".agents/skills/nextlevelbuilder/ui-ux-pro-max" = {
+      source = "${githubRepos."nextlevelbuilder"."ui-ux-pro-max-skill"}/.claude/skills";
+    };
+    ".agents/skills/kepano/obsidian-skills" = {
+      source = "${githubRepos."kepano"."obsidian-skills"}/skills";
+    };
+    ".agents/skills/figma/mcp-server-guide" = {
+      source = "${githubRepos."figma"."mcp-server-guide"}/skills";
+    };
+    ".agents/skills/wechatpay-apiv3/wechatpay-skills" = {
+      source = "${githubRepos."wechatpay-apiv3"."wechatpay-skills"}";
+    };
+    ".agents/skills/mattpocock/skills/skills/engineering" = {
+      source = "${githubRepos."mattpocock"."skills"}/skills/engineering";
+    };
+    ".agents/skills/mattpocock/skills/skills/productivity" = {
+      source = "${githubRepos."mattpocock"."skills"}/skills/productivity";
+    };
+
+
+    ".hermes/skills/bundled" = {
+      source = "${githubRepos."NousResearch"."hermes-agent"}/skills";
+    };
+  };
+
+  programs = {
+    opencode = {
+      enable = true;
+      package = (pkgs.writeShellScriptBin "opencode" ''
+      export OP_SERVICE_ACCOUNT_TOKEN='{{ onepasswordRead "op://3kzndqhe5bky5wj65buh2h4ybi/kpip7secen2mphnpumc4axirlm/credential" }}'
+      exec bunx --silent opencode-ai@latest "$@"
+      '');
+    };
+    codex = {
+      enable = true;
+      package = (pkgs.writeShellScriptBin "codex" ''
+      export OP_SERVICE_ACCOUNT_TOKEN='{{ onepasswordRead "op://3kzndqhe5bky5wj65buh2h4ybi/kpip7secen2mphnpumc4axirlm/credential" }}'
+      exec bunx @openai/codex@latest "$@"
+      '');
+    };
+    claude-code = {
+      enable = true;
+      package = (pkgs.writeShellScriptBin "claude" ''
+      export OP_SERVICE_ACCOUNT_TOKEN='{{ onepasswordRead "op://3kzndqhe5bky5wj65buh2h4ybi/kpip7secen2mphnpumc4axirlm/credential" }}'
+      exec npx -y @anthropic-ai/claude-code "$@"
+      '');
+    };
+    gemini-cli = {
+      enable = true;
+      package = (pkgs.writeShellScriptBin "gemini" ''
+      export OP_SERVICE_ACCOUNT_TOKEN='{{ onepasswordRead "op://3kzndqhe5bky5wj65buh2h4ybi/kpip7secen2mphnpumc4axirlm/credential" }}'
+      exec bunx @google/gemini-cli "$@"
+      '');
+    };
+  };
+}

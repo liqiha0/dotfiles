@@ -1,0 +1,30 @@
+model = "gpt-5.5"
+openai_base_url = "http://localhost:8317/v1"
+model_reasoning_effort = "high"
+web_search = "live"
+approvals_reviewer = "guardian_subagent"
+sandbox_mode = "workspace-write"
+
+[features]
+js_repl = true
+terminal_resize_reflow = true
+memories = false
+goals = true
+
+[mcp_servers.deepwiki]
+url = "https://mcp.deepwiki.com/mcp"
+
+[mcp_servers.gitnexus]
+command = "bunx"
+args = ["gitnexus", "mcp"]
+
+[mcp_servers.figma]
+url = "https://mcp.figma.com/mcp"
+
+[mcp_servers.mobile-mcp]
+command = "bunx"
+args = ["@mobilenext/mobile-mcp@latest"]
+
+[mcp_servers.maestro]
+command = "maestro"
+args = ["mcp"]
