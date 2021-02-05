@@ -1,0 +1,147 @@
+{ config, pkgs, ... }:
+
+{
+  home.stateVersion = "23.11";
+
+  nixpkgs.config.allowUnfree = true;
+
+  home.language = {
+    base = "zh_CN.UTF-8";
+  };
+
+  home.packages = with pkgs; [
+    wget
+    unzip
+    kubectl
+    chafa
+    talosctl
+    kubernetes-helm
+    _1password-cli
+    devbox
+    pack
+    shell-gpt
+    tldr
+    httpie
+    pandoc
+    fx
+    yq
+    dust
+    curlie
+    gping
+    cht-sh
+    gitlab-ci-local
+
+    deno
+    nodejs_22
+    pnpm
+    cargo
+    rustc
+    uv
+
+    delta
+    navi
+    cz-cli
+    mariadb-client
+  ];
+
+  home.sessionVariables = {
+    GEMINI_API_KEY = "{{ onepasswordRead "op://w7pdf7kq2qdntrhsfunxeozuxa/a7wn3g62u3hawi7r5em5xz2tzm/credential" }}";
+    OCO_API_KEY = "{{ onepasswordRead "op://w7pdf7kq2qdntrhsfunxeozuxa/a7wn3g62u3hawi7r5em5xz2tzm/credential" }}";
+    GOOGLE_CLOUD_PROJECT="gen-lang-client-0718256311";
+  };
+
+  home.shellAliases = {
+    codex = "pnpm dlx @openai/codex";
+    gemini = "pnpm dlx @google/gemini-cli";
+    posting = "uvx posting";
+    specify = "uvx --from git+https://github.com/github/spec-kit.git specify";
+  };
+
+  programs = {
+    home-manager.enable = true;
+    java = {
+      enable = true;
+    };
+    gradle = {
+      enable = true;
+    };
+
+    fish = {
+      enable = true;
+      interactiveShellInit = ''
+        fish_vi_key_bindings
+      '';
+    };
+    starship = {
+      enable = true;
+    };
+    zellij = {
+      enable = true;
+    };
+    zoxide = {
+      enable = true;
+      enableFishIntegration = true;
+    };
+    eza = {
+      enable = true;
+    };
+    yazi = {
+      enable = true;
+      enableFishIntegration = true;
+    };
+    bottom = {
+      enable = true;
+    };
+    jq = {
+      enable = true;
+    };
+    bat.enable = true;
+    k9s.enable = true;
+    lazygit.enable = true;
+    lazydocker.enable = true;
+    gh.enable = true;
+    gh-dash.enable = true;
+
+    git = {
+      enable = true;
+      userName = "liqihao";
+      userEmail = "liqiha0@outlook.com";
+      delta = {
+        enable = true;
+      };
+    };
+    jujutsu = {
+      enable = true;
+      settings = {
+        user = {
+          name = "liqihao";
+          email = "liqiha0@outlook.com";
+        };
+      };
+    };
+
+    neovim = {
+      enable = true;
+      defaultEditor = true;
+      extraLuaPackages = ps: [ ps.magick ];
+      extraPackages = [
+        pkgs.ueberzugpp
+        pkgs.imagemagick
+      ];
+    };
+    fzf.enable = true;
+    fd.enable = true;
+    ripgrep.enable = true;
+    neovide = {
+      enable = true;
+      settings = {
+        fork = true;
+        frame = "transparent";
+        font = {
+          normal = [ "JetBrainsMono Nerd Font" ];
+          size = 14.0;
+        };
+      };
+    };
+  };
+}
