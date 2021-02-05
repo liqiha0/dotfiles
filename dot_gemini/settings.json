@@ -1,0 +1,40 @@
+{
+  "model": {
+    "name": "pro"
+  },
+  "general": {
+    "preferredEditor": "neovim",
+    "vimMode": true,
+    "previewFeatures": true
+  },
+  "security": {
+    "auth": {
+      "selectedType": "oauth-personal"
+    }
+  },
+  "ui": {
+    "theme": "Default",
+    "showStatusInTitle": true,
+    "showMemoryUsage": true,
+    "showLineNumbers": true,
+    "showCitations": true,
+    "showModelInfoInChat": true,
+    "useFullWidth": true
+  },
+  "mcpServers": {
+    "spec-workflow": {
+      "command": "pnpm",
+      "args": [
+        "dlx",
+        "@pimzino/spec-workflow-mcp@latest"
+      ]
+    },
+    "context7": {
+      "command": "pnpm",
+      "args": [
+        "dlx",
+        "@upstash/context7-mcp@latest"
+      ]
+    }
+  }
+}
