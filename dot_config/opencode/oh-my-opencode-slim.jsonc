@@ -1,0 +1,70 @@
+{
+  "$schema": "https://unpkg.com/oh-my-opencode-slim@latest/oh-my-opencode-slim.schema.json",
+  "preset": "default",
+  "presets": {
+    "default": {
+      "orchestrator": {
+        "model": "openai/gpt-5.5",
+        "variant": "medium",
+        "skills": [
+          "*"
+        ],
+        "mcps": [
+          "*"
+        ],
+        "temperature": 1
+      },
+      "oracle": {
+        "model": "openai/gpt-5.5",
+        "variant": "high",
+        "skills": [
+          "*"
+        ],
+        "mcps": [
+          "*"
+        ],
+        "temperature": 1
+      },
+      "designer": {
+        "model": "moonshotai/kimi-k2.6",
+        "skills": [
+          "*"
+        ],
+        "mcps": [
+          "*"
+        ],
+        "temperature": 1
+      },
+      "explorer": {
+        "model": "openai/gpt-5.4-mini",
+        "skills": [
+          "*"
+        ],
+        "mcps": [
+          "*"
+        ],
+        "temperature": 1
+      },
+      "librarian": {
+        "model": "openai/gpt-5.5",
+        "skills": [
+          "*"
+        ],
+        "mcps": [
+          "*"
+        ],
+        "temperature": 1
+      },
+      "fixer": {
+        "model": "openai/gpt-5.4",
+        "skills": [
+          "*"
+        ],
+        "mcps": [
+          "*"
+        ],
+        "temperature": 1
+      }
+    }
+  }
+}
