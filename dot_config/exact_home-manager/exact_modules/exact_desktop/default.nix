@@ -1,0 +1,80 @@
+{ inputs, pkgs, ... }:
+{
+  imports = [
+    ./hyprland.nix
+    ./noctalia.nix
+    ./gtk.nix
+    ./fonts.nix
+  ];
+
+  home.packages = with pkgs; [
+    localsend
+    wechat
+    qq
+    bubblewrap
+    libreoffice
+    vlc
+    gimp
+
+    nautilus
+  ];
+
+  i18n.inputMethod = {
+    enable = true;
+    type = "fcitx5";
+    fcitx5 = {
+      addons = with pkgs; [
+        fcitx5-rime
+        fcitx5-tokyonight
+      ];
+      settings.addons.classicui.globalSection.Theme = "Tokyonight-Storm";
+    };
+  };
+
+  home.file = {
+    ".local/share/fcitx5/rime" = {
+      source = inputs."iDvel-rime-ice";
+      recursive = true;
+    };
+  };
+
+  xdg = {
+    portal = {
+      enable = true;
+    };
+    autostart = {
+      enable = true;
+    };
+  };
+
+  services = {
+    linux-wallpaperengine = {
+      enable = true;
+      wallpapers = [
+        {
+          wallpaperId = "1493910771";
+          monitor = "HDMI-A-1";
+        }
+        {
+          wallpaperId = "1493910771";
+          monitor = "eDP-1";
+        }
+      ];
+    };
+    remmina = {
+      enable = true;
+    };
+    tailscale-systray = {
+      enable = true;
+    };
+  };
+
+  programs = {
+    zen-browser = {
+      enable = true;
+    };
+    obsidian = {
+      enable = true;
+    };
+  };
+}
