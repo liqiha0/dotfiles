@@ -1,0 +1,38 @@
+# export PATH=/Library/Java/JavaVirtualMachines/graalvm-ce-java11-21.2.0/Contents/Home/bin:"$PATH"
+
+source ~/.zinit/zinit.zsh
+zinit snippet OMZL::bzr.zsh
+zinit snippet OMZL::cli.zsh
+zinit snippet OMZL::clipboard.zsh
+zinit snippet OMZL::compfix.zsh
+zinit snippet OMZL::completion.zsh
+zinit snippet OMZL::correction.zsh
+zinit snippet OMZL::diagnostics.zsh
+zinit snippet OMZL::directories.zsh
+zinit snippet OMZL::functions.zsh
+zinit snippet OMZL::git.zsh
+zinit snippet OMZL::grep.zsh
+zinit snippet OMZL::history.zsh
+zinit snippet OMZL::key-bindings.zsh
+zinit snippet OMZL::misc.zsh
+zinit snippet OMZL::nvm.zsh
+zinit snippet OMZL::prompt_info_functions.zsh
+zinit snippet OMZL::spectrum.zsh
+zinit snippet OMZL::termsupport.zsh
+zinit snippet OMZL::theme-and-appearance.zsh
+zinit snippet OMZP::git
+zinit snippet OMZP::extract
+zinit snippet OMZP::autojump
+zinit snippet OMZP::npm
+zinit ice svn pick="osx.plugin.zsh"
+zinit snippet OMZ::plugins/osx
+
+zinit load zsh-users/zsh-syntax-highlighting
+zinit load zsh-users/zsh-autosuggestions
+zinit load romkatv/powerlevel10k
+
+autoload -U compinit && compinit
+source <(kubectl completion zsh)
+
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
