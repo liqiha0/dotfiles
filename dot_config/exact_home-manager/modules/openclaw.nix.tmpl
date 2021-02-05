@@ -1,0 +1,114 @@
+{ config, lib, pkgs, ... }:
+
+let
+  sources = import ./sources.nix { inherit pkgs; };
+in
+{
+  # TODO(nix-openclaw): Remove once feishu is added to upstream generated schema.
+  # See: https://github.com/openclaw/nix-openclaw
+  options.programs.openclaw.instances = lib.mkOption {
+    type = lib.types.attrsOf (lib.types.submodule {
+      options.config = lib.mkOption {
+        type = lib.types.submodule {
+          options.channels = lib.mkOption {
+            type = lib.types.nullOr (lib.types.submodule {
+              options.feishu = lib.mkOption {
+                type = lib.types.nullOr lib.types.attrs;
+                default = null;
+              };
+            });
+          };
+        };
+      };
+    });
+  };
+
+  config.home.file = {
+    ".openclaw/skills".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.agents/skills";
+  };
+
+  config.programs.openclaw = {
+    package = pkgs.llm-agents.openclaw;
+    instances.main = {
+      enable = true;
+      launchd.enable = true;
+      stateDir = "/Users/liqihao/.openclaw";
+      workspaceDir = "/Users/liqihao/.openclaw/workspace";
+      config = {
+        agents = {
+          defaults = {
+            workspace = "~/.openclaw/workspace";
+            model.primary = "openai-codex/gpt-5.3-codex";
+          };
+          list = [
+            { id = "main"; }
+            {
+              id = "uruansoft";
+              workspace = "~/.openclaw/agents/uruansoft/workspace";
+              agentDir = "~/.openclaw/agents/uruansoft/agent";
+            }
+          ];
+        };
+
+        gateway = {
+          mode = "local";
+          auth = {
+            mode = "token";
+            token = "{{ onepasswordRead "op://w7pdf7kq2qdntrhsfunxeozuxa/7uh4athuk26jufmhabzvgu2ib4/credential" }}";
+          };
+          port = 18789;
+          bind = "auto";
+        };
+
+        env.shellEnv = {
+          enabled = true;
+          timeoutMs = 15000;
+        };
+
+        auth.profiles."openai-codex:default" = {
+          provider = "openai-codex";
+          mode = "oauth";
+        };
+
+        channels = {
+          telegram = {
+            enabled = true;
+            botToken = "{{ onepasswordRead "op://w7pdf7kq2qdntrhsfunxeozuxa/vmezp3vvauch5ji6lskmtdkvya/credential" }}";
+            dmPolicy = "allowlist";
+            allowFrom = [
+              "{{ onepasswordRead "op://w7pdf7kq2qdntrhsfunxeozuxa/opinrpjtv5hok5glfkf6f6tb2i/l7kgf7x55wrdpgaosqwvs7wcou" }}"
+              "{{ onepasswordRead "op://w7pdf7kq2qdntrhsfunxeozuxa/opinrpjtv5hok5glfkf6f6tb2i/w64wymq3sedewsb6bosow7hzsy" }}"
+            ];
+          };
+          feishu = {
+            enabled = true;
+            dmPolicy = "open";
+            allowFrom = [ "*" ];
+            accounts.main = {
+              appId = "{{ onepasswordRead "op://ny2775cj56essnndu6e3fh7vhq/4djwdewypapklcpe7efaeyifhu/username" }}";
+              appSecret = "{{ onepasswordRead "op://ny2775cj56essnndu6e3fh7vhq/4djwdewypapklcpe7efaeyifhu/credential" }}";
+            };
+          };
+        };
+
+        bindings = [
+          {
+            agentId = "uruansoft";
+            match = {
+              channel = "feishu";
+            };
+          }
+        ];
+
+        session.dmScope = "per-channel-peer";
+
+        plugins.entries.telegram.enabled = true;
+        plugins.entries.feishu.enabled = true;
+
+        skills.install.nodeManager = "bun";
+      };
+    };
+  };
+
+  config.launchd.agents."ai.openclaw.gateway".config.EnvironmentVariables.PATH = "${config.home.profileDirectory}/bin:/run/current-system/sw/bin:/nix/var/nix/profiles/default/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin";
+}

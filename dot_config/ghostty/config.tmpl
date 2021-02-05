@@ -1,0 +1,17 @@
+font-family = Maple Mono NF CN
+# font-family = JetBrainsMono Nerd Font
+
+{{- if eq .chezmoi.os "darwin" }}
+font-size = 14
+{{- else }}
+font-size = 12
+{{- end }}
+
+theme = dark:Catppuccin Frappe,light:Catppuccin Latte
+background-opacity = 0.85
+background-blur-radius = 30
+
+macos-titlebar-style = hidden
+gtk-titlebar = false
+
+macos-option-as-alt = true

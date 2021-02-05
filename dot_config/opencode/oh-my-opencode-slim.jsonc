@@ -1,0 +1,47 @@
+{
+  "preset": "manual",
+  "presets": {
+    "manual": {
+      "orchestrator": {
+        "model": "openai/gpt-5.4",
+        "skills": [
+          "*"
+        ],
+        "mcps": [
+          "websearch"
+        ]
+      },
+      "oracle": {
+        "model": "openai/gpt-5.4",
+        "skills": [],
+        "mcps": []
+      },
+      "designer": {
+        "model": "openai/gpt-5.4",
+        "skills": [
+          "agent-browser"
+        ],
+        "mcps": []
+      },
+      "explorer": {
+        "model": "openai/gpt-5.4",
+        "skills": [],
+        "mcps": []
+      },
+      "librarian": {
+        "model": "google/gemini-3.1-pro-preview",
+        "skills": [],
+        "mcps": [
+          "websearch",
+          "context7",
+          "grep_app"
+        ]
+      },
+      "fixer": {
+        "model": "opencode/minimax-m2.5-free",
+        "skills": [],
+        "mcps": []
+      }
+    }
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "mcpServers": {
+    "spec-workflow": {
+      "command": "bunx",
+      "args": ["@pimzino/spec-workflow-mcp@latest"]
+    },
+    "gitlab0": {
+      "command": "bunx",
+      "args": ["@zereight/mcp-gitlab"],
+      "env": {
+        "GITLAB_API_URL": "{{ onepasswordRead "op://3kzndqhe5bky5wj65buh2h4ybi/kt4dwi7bdd6burcodswf2h536i/hostname" }}",
+        "GITLAB_PERSONAL_ACCESS_TOKEN": "{{ onepasswordRead "op://3kzndqhe5bky5wj65buh2h4ybi/kt4dwi7bdd6burcodswf2h536i/credential" }}"
+      }
+    },
+    "gitlab1": {
+      "command": "bunx",
+      "args": ["@zereight/mcp-gitlab"],
+      "env": {
+        "GITLAB_API_URL": "{{ onepasswordRead "op://3kzndqhe5bky5wj65buh2h4ybi/la5ht4wloxcqoy2sh4esuqcvfy/hostname" }}",
+        "GITLAB_PERSONAL_ACCESS_TOKEN": "{{ onepasswordRead "op://3kzndqhe5bky5wj65buh2h4ybi/la5ht4wloxcqoy2sh4esuqcvfy/credential" }}"
+      }
+    },
+    "mobile-mcp": {
+      "command": "bunx",
+      "args": ["@mobilenext/mobile-mcp@latest"]
+    },
+    "maestro": {
+      "command": "maestro",
+      "args": ["mcp"]
+    },
+    "figma-desktop": {
+      "url": "http://127.0.0.1:3845/mcp"
+    },
+    "figma-context-mcp": {
+      "command": "bunx",
+      "args": ["figma-developer-mcp@latest", "--stdio"],
+      "env": {
+        "FIGMA_API_KEY": "{{ onepasswordRead "op://w7pdf7kq2qdntrhsfunxeozuxa/nwc6eilqzh7grus6unrbolxwpy/Api Key" }}"
+      }
+    },
+    "miniprogram-automator-mcp": {
+      "command": "bunx",
+      "args": ["miniprogram-automator-mcp@latest"]
+    }
+  }
+}
